@@ -8,7 +8,7 @@ import (
 	connect "connectrpc.com/connect"
 	context "context"
 	errors "errors"
-	v1 "harvest-hub/api/gen/proto/garden/v1"
+	v1 "github.com/harvesthub-gardening-tool/protos-go/garden/v1"
 	http "net/http"
 	strings "strings"
 )

@@ -358,10 +358,10 @@ const file_garden_v1_garden_proto_rawDesc = "" +
 	"\x06Garden\x12 InsertSensorData (GardenService)\x1a-Méthode RPC : GardenService.InsertSensorData\x82\xd3\xe4\x93\x02.:\x01*\")/garden.v1.GardenService/InsertSensorData\x12\xc6\x01\n" +
 	"\n" +
 	"GetSummary\x12\x1c.garden.v1.GetSummaryRequest\x1a\x1d.garden.v1.GetSummaryResponse\"{\x92AM\n" +
-	"\x06Garden\x12\x1aGetSummary (GardenService)\x1a'Méthode RPC : GardenService.GetSummary\x82\xd3\xe4\x93\x02%\"#/garden.v1.GardenService/GetSummary\x1a>\x92A;\x129Service for collecting and retrieving garden sensor data.B\xec\x01\x92A\xba\x01\x12j\n" +
+	"\x06Garden\x12\x1aGetSummary (GardenService)\x1a'Méthode RPC : GardenService.GetSummary\x82\xd3\xe4\x93\x02%\"#/garden.v1.GardenService/GetSummary\x1a>\x92A;\x129Service for collecting and retrieving garden sensor data.B\x81\x02\x92A\xba\x01\x12j\n" +
 	"\n" +
 	"Garden API\x12@API pour collecter et consulter les données capteurs du jardin.\"\x15\n" +
-	"\x13Harvest Hub Project2\x031.0*\x02\x01\x022\x10application/json2\x11application/proto:\x10application/json:\x11application/protoZ,harvest-hub/api/gen/proto/garden/v1;gardenv1b\x06proto3"
+	"\x13Harvest Hub Project2\x031.0*\x02\x01\x022\x10application/json2\x11application/proto:\x10application/json:\x11application/protoZAgithub.com/harvesthub-gardening-tool/protos-go/garden/v1;gardenv1b\x06proto3"
 
 var (
 	file_garden_v1_garden_proto_rawDescOnce sync.Once
