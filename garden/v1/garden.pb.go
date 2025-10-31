@@ -4,6 +4,8 @@
 // 	protoc        (unknown)
 // source: garden/v1/garden.proto
 
+// test comment
+
 package gardenv1
 
 import (
