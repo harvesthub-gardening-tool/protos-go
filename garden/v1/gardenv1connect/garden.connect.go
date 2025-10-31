@@ -2,6 +2,7 @@
 //
 // Source: garden/v1/garden.proto
 
+// test comment
 package gardenv1connect
 
 import (
