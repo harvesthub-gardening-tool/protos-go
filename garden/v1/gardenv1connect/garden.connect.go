@@ -44,9 +44,16 @@ const (
 
 // GardenServiceClient is a client for the garden.v1.GardenService service.
 type GardenServiceClient interface {
-	// * Insère une nouvelle mesure capteur
+	// *
+	// Insère une nouvelle mesure capteur
+	//
+	// **Authentication:** Requires service account token (Hub only)
+	// **Authorization:** Only service accounts without email can write
 	InsertSensorData(context.Context, *connect.Request[v1.InsertSensorDataRequest]) (*connect.Response[v1.InsertSensorDataResponse], error)
-	// * Récupère un résumé agrégé sur une fenêtre de temps
+	// *
+	// Récupère un résumé agrégé sur une fenêtre de temps
+	//
+	// **Authentication:** Requires valid user or service account token
 	GetSummary(context.Context, *connect.Request[v1.GetSummaryRequest]) (*connect.Response[v1.GetSummaryResponse], error)
 }
 
@@ -94,9 +101,16 @@ func (c *gardenServiceClient) GetSummary(ctx context.Context, req *connect.Reque
 
 // GardenServiceHandler is an implementation of the garden.v1.GardenService service.
 type GardenServiceHandler interface {
-	// * Insère une nouvelle mesure capteur
+	// *
+	// Insère une nouvelle mesure capteur
+	//
+	// **Authentication:** Requires service account token (Hub only)
+	// **Authorization:** Only service accounts without email can write
 	InsertSensorData(context.Context, *connect.Request[v1.InsertSensorDataRequest]) (*connect.Response[v1.InsertSensorDataResponse], error)
-	// * Récupère un résumé agrégé sur une fenêtre de temps
+	// *
+	// Récupère un résumé agrégé sur une fenêtre de temps
+	//
+	// **Authentication:** Requires valid user or service account token
 	GetSummary(context.Context, *connect.Request[v1.GetSummaryRequest]) (*connect.Response[v1.GetSummaryResponse], error)
 }
 

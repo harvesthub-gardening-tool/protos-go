@@ -6,7 +6,7 @@ toolchain go1.24.11
 
 require (
 	connectrpc.com/connect v1.19.1
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.3
-	google.golang.org/genproto/googleapis/api v0.0.0-20251213004720-97cd9d5aeac2
-	google.golang.org/protobuf v1.36.10
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.4
+	google.golang.org/genproto/googleapis/api v0.0.0-20251222181119-0a764e51fe1b
+	google.golang.org/protobuf v1.36.11
 )

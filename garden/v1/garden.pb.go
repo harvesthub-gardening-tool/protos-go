@@ -364,16 +364,33 @@ const file_garden_v1_garden_proto_rawDesc = "" +
 	"\x0favg_temperature\x18\x03 \x01(\x01R\x0eavgTemperature\x12!\n" +
 	"\favg_humidity\x18\x04 \x01(\x01R\vavgHumidity\x12*\n" +
 	"\x11avg_soil_moisture\x18\x05 \x01(\x01R\x0favgSoilMoisture\x12'\n" +
-	"\x0fmax_temperature\x18\x06 \x01(\x01R\x0emaxTemperature2\x89\x04\n" +
-	"\rGardenService\x12\xee\x01\n" +
-	"\x10InsertSensorData\x12\".garden.v1.InsertSensorDataRequest\x1a#.garden.v1.InsertSensorDataResponse\"\x90\x01\x92AY\n" +
-	"\x06Garden\x12 InsertSensorData (GardenService)\x1a-Méthode RPC : GardenService.InsertSensorData\x82\xd3\xe4\x93\x02.:\x01*\")/garden.v1.GardenService/InsertSensorData\x12\xc6\x01\n" +
+	"\x0fmax_temperature\x18\x06 \x01(\x01R\x0emaxTemperature2\xb9\x05\n" +
+	"\rGardenService\x12\xd4\x02\n" +
+	"\x10InsertSensorData\x12\".garden.v1.InsertSensorDataRequest\x1a#.garden.v1.InsertSensorDataResponse\"\xf6\x01\x92A\xbe\x01\n" +
+	"\x06Garden\x12 InsertSensorData (GardenService)\x1a\x83\x01Méthode RPC : GardenService.InsertSensorData\n" +
 	"\n" +
-	"GetSummary\x12\x1c.garden.v1.GetSummaryRequest\x1a\x1d.garden.v1.GetSummaryResponse\"{\x92AM\n" +
-	"\x06Garden\x12\x1aGetSummary (GardenService)\x1a'Méthode RPC : GardenService.GetSummary\x82\xd3\xe4\x93\x02%\"#/garden.v1.GardenService/GetSummary\x1a>\x92A;\x129Service for collecting and retrieving garden sensor data.B\x81\x02\x92A\xba\x01\x12j\n" +
+	"**Requires:** Service account authentication (Hub). Users cannot call this endpoint.b\f\n" +
 	"\n" +
-	"Garden API\x12@API pour collecter et consulter les données capteurs du jardin.\"\x15\n" +
-	"\x13Harvest Hub Project2\x031.0*\x02\x01\x022\x10application/json2\x11application/proto:\x10application/json:\x11application/protoZAgithub.com/harvesthub-gardening-tool/protos-go/garden/v1;gardenv1b\x06proto3"
+	"\n" +
+	"\x06bearer\x12\x00\x82\xd3\xe4\x93\x02.:\x01*\")/garden.v1.GardenService/InsertSensorData\x12\x90\x02\n" +
+	"\n" +
+	"GetSummary\x12\x1c.garden.v1.GetSummaryRequest\x1a\x1d.garden.v1.GetSummaryResponse\"\xc4\x01\x92A\x95\x01\n" +
+	"\x06Garden\x12\x1aGetSummary (GardenService)\x1aaMéthode RPC : GardenService.GetSummary\n" +
+	"\n" +
+	"**Requires:** Any authenticated user or service account.b\f\n" +
+	"\n" +
+	"\n" +
+	"\x06bearer\x12\x00\x82\xd3\xe4\x93\x02%\"#/garden.v1.GardenService/GetSummary\x1a>\x92A;\x129Service for collecting and retrieving garden sensor data.B\xbb\x03\x92A\xf4\x02\x12\xbf\x01\n" +
+	"\n" +
+	"Garden API\x12\x94\x01API pour collecter et consulter les données capteurs du jardin.\n" +
+	"\n" +
+	"**Authentication:** All endpoints require Bearer token authentication via Zitadel.\"\x15\n" +
+	"\x13Harvest Hub Project2\x031.0*\x02\x01\x022\x10application/json2\x11application/proto:\x10application/json:\x11application/protoZT\n" +
+	"R\n" +
+	"\x06bearer\x12H\b\x02\x123Bearer token from Zitadel. Format: 'Bearer <token>'\x1a\rAuthorization \x02b\f\n" +
+	"\n" +
+	"\n" +
+	"\x06bearer\x12\x00ZAgithub.com/harvesthub-gardening-tool/protos-go/garden/v1;gardenv1b\x06proto3"
 
 var (
 	file_garden_v1_garden_proto_rawDescOnce sync.Once
