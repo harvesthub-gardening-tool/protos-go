@@ -1,12 +1,10 @@
 module github.com/harvesthub-gardening-tool/protos-go
 
-go 1.24.0
-
-toolchain go1.24.11
+go 1.25.0
 
 require (
 	connectrpc.com/connect v1.19.1
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.4
-	google.golang.org/genproto/googleapis/api v0.0.0-20251222181119-0a764e51fe1b
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.28.0
+	google.golang.org/genproto/googleapis/api v0.0.0-20260217215200-42d3e9bedb6d
 	google.golang.org/protobuf v1.36.11
 )
