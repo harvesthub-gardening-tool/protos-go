@@ -7,6 +7,8 @@
 package authv1
 
 import (
+	_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2/options"
+	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -21,6 +23,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// ====== Messages ======
 type RegisterRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
@@ -541,7 +544,7 @@ var File_auth_v1_auth_proto protoreflect.FileDescriptor
 
 const file_auth_v1_auth_proto_rawDesc = "" +
 	"\n" +
-	"\x12auth/v1/auth.proto\x12\aauth.v1\"C\n" +
+	"\x12auth/v1/auth.proto\x12\aauth.v1\x1a\x1cgoogle/api/annotations.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\"C\n" +
 	"\x0fRegisterRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\x12\x1a\n" +
 	"\bpassword\x18\x02 \x01(\tR\bpassword\"A\n" +
@@ -568,13 +571,35 @@ const file_auth_v1_auth_proto_rawDesc = "" +
 	"\x06tokens\x18\x01 \x03(\v2\x15.auth.v1.HubTokenInfoR\x06tokens\"2\n" +
 	"\x15RevokeHubTokenRequest\x12\x19\n" +
 	"\btoken_id\x18\x01 \x01(\tR\atokenId\"\x18\n" +
-	"\x16RevokeHubTokenResponse2\xfc\x02\n" +
-	"\vAuthService\x12?\n" +
-	"\bRegister\x12\x18.auth.v1.RegisterRequest\x1a\x19.auth.v1.RegisterResponse\x126\n" +
-	"\x05Login\x12\x15.auth.v1.LoginRequest\x1a\x16.auth.v1.LoginResponse\x12Q\n" +
-	"\x0eCreateHubToken\x12\x1e.auth.v1.CreateHubTokenRequest\x1a\x1f.auth.v1.CreateHubTokenResponse\x12N\n" +
-	"\rListHubTokens\x12\x1d.auth.v1.ListHubTokensRequest\x1a\x1e.auth.v1.ListHubTokensResponse\x12Q\n" +
-	"\x0eRevokeHubToken\x12\x1e.auth.v1.RevokeHubTokenRequest\x1a\x1f.auth.v1.RevokeHubTokenResponseB?Z=github.com/harvesthub-gardening-tool/protos-go/auth/v1;authv1b\x06proto3"
+	"\x16RevokeHubTokenResponse2\x92\n" +
+	"\n" +
+	"\vAuthService\x12\xd6\x01\n" +
+	"\bRegister\x12\x18.auth.v1.RegisterRequest\x1a\x19.auth.v1.RegisterResponse\"\x94\x01\x92Ai\n" +
+	"\x04Auth\x12\x16Register (AuthService)\x1aGCreate a new user account. Returns a user JWT token valid for 24 hours.b\x00\x82\xd3\xe4\x93\x02\":\x01*\"\x1d/auth.v1.AuthService/Register\x12\xc4\x01\n" +
+	"\x05Login\x12\x15.auth.v1.LoginRequest\x1a\x16.auth.v1.LoginResponse\"\x8b\x01\x92Ac\n" +
+	"\x04Auth\x12\x13Login (AuthService)\x1aDValidate credentials and return a user JWT token valid for 24 hours.b\x00\x82\xd3\xe4\x93\x02\x1f:\x01*\"\x1a/auth.v1.AuthService/Login\x12\x93\x02\n" +
+	"\x0eCreateHubToken\x12\x1e.auth.v1.CreateHubTokenRequest\x1a\x1f.auth.v1.CreateHubTokenResponse\"\xbf\x01\x92A\x8d\x01\n" +
+	"\x04Auth\x12\x1cCreateHubToken (AuthService)\x1aYCreate a hub device service account token valid for 1 year. The token is shown only once.b\f\n" +
+	"\n" +
+	"\n" +
+	"\x06bearer\x12\x00\x82\xd3\xe4\x93\x02(:\x01*\"#/auth.v1.AuthService/CreateHubToken\x12\xf8\x01\n" +
+	"\rListHubTokens\x12\x1d.auth.v1.ListHubTokensRequest\x1a\x1e.auth.v1.ListHubTokensResponse\"\xa7\x01\x92Aw\n" +
+	"\x04Auth\x12\x1bListHubTokens (AuthService)\x1aDList all active (non-revoked) hub tokens for the authenticated user.b\f\n" +
+	"\n" +
+	"\n" +
+	"\x06bearer\x12\x00\x82\xd3\xe4\x93\x02':\x01*\"\"/auth.v1.AuthService/ListHubTokens\x12\x96\x02\n" +
+	"\x0eRevokeHubToken\x12\x1e.auth.v1.RevokeHubTokenRequest\x1a\x1f.auth.v1.RevokeHubTokenResponse\"\xc2\x01\x92A\x90\x01\n" +
+	"\x04Auth\x12\x1cRevokeHubToken (AuthService)\x1a\\Revoke a hub token by ID. Revoked tokens are excluded from listings and rejected by the API.b\f\n" +
+	"\n" +
+	"\n" +
+	"\x06bearer\x12\x00\x82\xd3\xe4\x93\x02(:\x01*\"#/auth.v1.AuthService/RevokeHubToken\x1a9\x92A6\x124User authentication and hub device token management.B\xf6\x03\x92A\xb3\x03\x12\x97\x02\n" +
+	"\bAuth API\x12\xee\x01API for user registration, login, and hub device token management.\n" +
+	"\n" +
+	"**Public endpoints:** Register, Login — no token required.\n" +
+	"**Protected endpoints:** CreateHubToken, ListHubTokens, RevokeHubToken — require a valid user Bearer token.\"\x15\n" +
+	"\x13Harvest Hub Project2\x031.0*\x02\x01\x022\x10application/json2\x11application/proto:\x10application/json:\x11application/protoZI\n" +
+	"G\n" +
+	"\x06bearer\x12=\b\x02\x12(User JWT token. Format: 'Bearer <token>'\x1a\rAuthorization \x02Z=github.com/harvesthub-gardening-tool/protos-go/auth/v1;authv1b\x06proto3"
 
 var (
 	file_auth_v1_auth_proto_rawDescOnce sync.Once
