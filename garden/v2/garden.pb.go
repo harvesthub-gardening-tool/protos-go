@@ -25,14 +25,16 @@ const (
 
 // ====== Messages ======
 type InsertSensorDataRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	NodeId        string                 `protobuf:"bytes,1,opt,name=node_id,json=nodeId,proto3" json:"node_id,omitempty"`                     // Probe identifier (BLE MAC or stable hardware ID)
-	Temperature   float64                `protobuf:"fixed64,2,opt,name=temperature,proto3" json:"temperature,omitempty"`                       // Celsius
-	Humidity      float64                `protobuf:"fixed64,3,opt,name=humidity,proto3" json:"humidity,omitempty"`                             // Percent (0-100)
-	SoilMoisture  float64                `protobuf:"fixed64,4,opt,name=soil_moisture,json=soilMoisture,proto3" json:"soil_moisture,omitempty"` // Percent (0-100)
-	Timestamp     int64                  `protobuf:"varint,5,opt,name=timestamp,proto3" json:"timestamp,omitempty"`                            // Unix milliseconds
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	NodeId          string                 `protobuf:"bytes,1,opt,name=node_id,json=nodeId,proto3" json:"node_id,omitempty"`                              // Probe identifier (BLE MAC or stable hardware ID)
+	AirTemperature  float64                `protobuf:"fixed64,2,opt,name=air_temperature,json=airTemperature,proto3" json:"air_temperature,omitempty"`    // Celsius
+	AirHumidity     float64                `protobuf:"fixed64,3,opt,name=air_humidity,json=airHumidity,proto3" json:"air_humidity,omitempty"`             // Percent (0-100)
+	SoilHumidity    float64                `protobuf:"fixed64,4,opt,name=soil_humidity,json=soilHumidity,proto3" json:"soil_humidity,omitempty"`          // Percent (0-100)
+	Timestamp       int64                  `protobuf:"varint,5,opt,name=timestamp,proto3" json:"timestamp,omitempty"`                                     // Unix milliseconds
+	AirPressure     float64                `protobuf:"fixed64,6,opt,name=air_pressure,json=airPressure,proto3" json:"air_pressure,omitempty"`             // Pascals
+	SoilTemperature float64                `protobuf:"fixed64,7,opt,name=soil_temperature,json=soilTemperature,proto3" json:"soil_temperature,omitempty"` // Celsius
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
 }
 
 func (x *InsertSensorDataRequest) Reset() {
@@ -72,23 +74,23 @@ func (x *InsertSensorDataRequest) GetNodeId() string {
 	return ""
 }
 
-func (x *InsertSensorDataRequest) GetTemperature() float64 {
+func (x *InsertSensorDataRequest) GetAirTemperature() float64 {
 	if x != nil {
-		return x.Temperature
+		return x.AirTemperature
 	}
 	return 0
 }
 
-func (x *InsertSensorDataRequest) GetHumidity() float64 {
+func (x *InsertSensorDataRequest) GetAirHumidity() float64 {
 	if x != nil {
-		return x.Humidity
+		return x.AirHumidity
 	}
 	return 0
 }
 
-func (x *InsertSensorDataRequest) GetSoilMoisture() float64 {
+func (x *InsertSensorDataRequest) GetSoilHumidity() float64 {
 	if x != nil {
-		return x.SoilMoisture
+		return x.SoilHumidity
 	}
 	return 0
 }
@@ -96,6 +98,20 @@ func (x *InsertSensorDataRequest) GetSoilMoisture() float64 {
 func (x *InsertSensorDataRequest) GetTimestamp() int64 {
 	if x != nil {
 		return x.Timestamp
+	}
+	return 0
+}
+
+func (x *InsertSensorDataRequest) GetAirPressure() float64 {
+	if x != nil {
+		return x.AirPressure
+	}
+	return 0
+}
+
+func (x *InsertSensorDataRequest) GetSoilTemperature() float64 {
+	if x != nil {
+		return x.SoilTemperature
 	}
 	return 0
 }
@@ -258,17 +274,19 @@ func (x *GetSummaryResponse) GetSummaries() []*SensorSummary {
 }
 
 type SensorSummary struct {
-	state           protoimpl.MessageState `protogen:"open.v1"`
-	NodeId          string                 `protobuf:"bytes,1,opt,name=node_id,json=nodeId,proto3" json:"node_id,omitempty"`
-	IntervalStart   int64                  `protobuf:"varint,2,opt,name=interval_start,json=intervalStart,proto3" json:"interval_start,omitempty"` // Unix milliseconds
-	AvgTemperature  float64                `protobuf:"fixed64,3,opt,name=avg_temperature,json=avgTemperature,proto3" json:"avg_temperature,omitempty"`
-	AvgHumidity     float64                `protobuf:"fixed64,4,opt,name=avg_humidity,json=avgHumidity,proto3" json:"avg_humidity,omitempty"`
-	AvgSoilMoisture float64                `protobuf:"fixed64,5,opt,name=avg_soil_moisture,json=avgSoilMoisture,proto3" json:"avg_soil_moisture,omitempty"`
-	MaxTemperature  float64                `protobuf:"fixed64,6,opt,name=max_temperature,json=maxTemperature,proto3" json:"max_temperature,omitempty"` // Celsius
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	NodeId            string                 `protobuf:"bytes,1,opt,name=node_id,json=nodeId,proto3" json:"node_id,omitempty"`
+	IntervalStart     int64                  `protobuf:"varint,2,opt,name=interval_start,json=intervalStart,proto3" json:"interval_start,omitempty"`                // Unix milliseconds
+	AvgAirTemperature float64                `protobuf:"fixed64,3,opt,name=avg_air_temperature,json=avgAirTemperature,proto3" json:"avg_air_temperature,omitempty"` // Celsius
+	AvgAirHumidity    float64                `protobuf:"fixed64,4,opt,name=avg_air_humidity,json=avgAirHumidity,proto3" json:"avg_air_humidity,omitempty"`          // Percent (0-100)
+	AvgSoilHumidity   float64                `protobuf:"fixed64,5,opt,name=avg_soil_humidity,json=avgSoilHumidity,proto3" json:"avg_soil_humidity,omitempty"`       // Percent (0-100)
+	MaxAirTemperature float64                `protobuf:"fixed64,6,opt,name=max_air_temperature,json=maxAirTemperature,proto3" json:"max_air_temperature,omitempty"` // Celsius
 	// ID of the hub that owns the probe (matches `hubs.id`).
-	HubId         string `protobuf:"bytes,7,opt,name=hub_id,json=hubId,proto3" json:"hub_id,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	HubId              string  `protobuf:"bytes,7,opt,name=hub_id,json=hubId,proto3" json:"hub_id,omitempty"`
+	AvgAirPressure     float64 `protobuf:"fixed64,8,opt,name=avg_air_pressure,json=avgAirPressure,proto3" json:"avg_air_pressure,omitempty"`             // Pascals
+	AvgSoilTemperature float64 `protobuf:"fixed64,9,opt,name=avg_soil_temperature,json=avgSoilTemperature,proto3" json:"avg_soil_temperature,omitempty"` // Celsius
+	unknownFields      protoimpl.UnknownFields
+	sizeCache          protoimpl.SizeCache
 }
 
 func (x *SensorSummary) Reset() {
@@ -315,30 +333,30 @@ func (x *SensorSummary) GetIntervalStart() int64 {
 	return 0
 }
 
-func (x *SensorSummary) GetAvgTemperature() float64 {
+func (x *SensorSummary) GetAvgAirTemperature() float64 {
 	if x != nil {
-		return x.AvgTemperature
+		return x.AvgAirTemperature
 	}
 	return 0
 }
 
-func (x *SensorSummary) GetAvgHumidity() float64 {
+func (x *SensorSummary) GetAvgAirHumidity() float64 {
 	if x != nil {
-		return x.AvgHumidity
+		return x.AvgAirHumidity
 	}
 	return 0
 }
 
-func (x *SensorSummary) GetAvgSoilMoisture() float64 {
+func (x *SensorSummary) GetAvgSoilHumidity() float64 {
 	if x != nil {
-		return x.AvgSoilMoisture
+		return x.AvgSoilHumidity
 	}
 	return 0
 }
 
-func (x *SensorSummary) GetMaxTemperature() float64 {
+func (x *SensorSummary) GetMaxAirTemperature() float64 {
 	if x != nil {
-		return x.MaxTemperature
+		return x.MaxAirTemperature
 	}
 	return 0
 }
@@ -350,17 +368,33 @@ func (x *SensorSummary) GetHubId() string {
 	return ""
 }
 
+func (x *SensorSummary) GetAvgAirPressure() float64 {
+	if x != nil {
+		return x.AvgAirPressure
+	}
+	return 0
+}
+
+func (x *SensorSummary) GetAvgSoilTemperature() float64 {
+	if x != nil {
+		return x.AvgSoilTemperature
+	}
+	return 0
+}
+
 var File_garden_v2_garden_proto protoreflect.FileDescriptor
 
 const file_garden_v2_garden_proto_rawDesc = "" +
 	"\n" +
-	"\x16garden/v2/garden.proto\x12\tgarden.v2\x1a\x1cgoogle/api/annotations.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\"\xb3\x01\n" +
+	"\x16garden/v2/garden.proto\x12\tgarden.v2\x1a\x1cgoogle/api/annotations.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\"\x8f\x02\n" +
 	"\x17InsertSensorDataRequest\x12\x17\n" +
-	"\anode_id\x18\x01 \x01(\tR\x06nodeId\x12 \n" +
-	"\vtemperature\x18\x02 \x01(\x01R\vtemperature\x12\x1a\n" +
-	"\bhumidity\x18\x03 \x01(\x01R\bhumidity\x12#\n" +
-	"\rsoil_moisture\x18\x04 \x01(\x01R\fsoilMoisture\x12\x1c\n" +
-	"\ttimestamp\x18\x05 \x01(\x03R\ttimestamp\"N\n" +
+	"\anode_id\x18\x01 \x01(\tR\x06nodeId\x12'\n" +
+	"\x0fair_temperature\x18\x02 \x01(\x01R\x0eairTemperature\x12!\n" +
+	"\fair_humidity\x18\x03 \x01(\x01R\vairHumidity\x12#\n" +
+	"\rsoil_humidity\x18\x04 \x01(\x01R\fsoilHumidity\x12\x1c\n" +
+	"\ttimestamp\x18\x05 \x01(\x03R\ttimestamp\x12!\n" +
+	"\fair_pressure\x18\x06 \x01(\x01R\vairPressure\x12)\n" +
+	"\x10soil_temperature\x18\a \x01(\x01R\x0fsoilTemperature\"N\n" +
 	"\x18InsertSensorDataResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x18\n" +
 	"\amessage\x18\x02 \x01(\tR\amessage\"\x89\x01\n" +
@@ -373,15 +407,17 @@ const file_garden_v2_garden_proto_rawDesc = "" +
 	"\x06_hoursB\t\n" +
 	"\a_hub_id\"L\n" +
 	"\x12GetSummaryResponse\x126\n" +
-	"\tsummaries\x18\x01 \x03(\v2\x18.garden.v2.SensorSummaryR\tsummaries\"\x87\x02\n" +
+	"\tsummaries\x18\x01 \x03(\v2\x18.garden.v2.SensorSummaryR\tsummaries\"\xf8\x02\n" +
 	"\rSensorSummary\x12\x17\n" +
 	"\anode_id\x18\x01 \x01(\tR\x06nodeId\x12%\n" +
-	"\x0einterval_start\x18\x02 \x01(\x03R\rintervalStart\x12'\n" +
-	"\x0favg_temperature\x18\x03 \x01(\x01R\x0eavgTemperature\x12!\n" +
-	"\favg_humidity\x18\x04 \x01(\x01R\vavgHumidity\x12*\n" +
-	"\x11avg_soil_moisture\x18\x05 \x01(\x01R\x0favgSoilMoisture\x12'\n" +
-	"\x0fmax_temperature\x18\x06 \x01(\x01R\x0emaxTemperature\x12\x15\n" +
-	"\x06hub_id\x18\a \x01(\tR\x05hubId2\xc6\x06\n" +
+	"\x0einterval_start\x18\x02 \x01(\x03R\rintervalStart\x12.\n" +
+	"\x13avg_air_temperature\x18\x03 \x01(\x01R\x11avgAirTemperature\x12(\n" +
+	"\x10avg_air_humidity\x18\x04 \x01(\x01R\x0eavgAirHumidity\x12*\n" +
+	"\x11avg_soil_humidity\x18\x05 \x01(\x01R\x0favgSoilHumidity\x12.\n" +
+	"\x13max_air_temperature\x18\x06 \x01(\x01R\x11maxAirTemperature\x12\x15\n" +
+	"\x06hub_id\x18\a \x01(\tR\x05hubId\x12(\n" +
+	"\x10avg_air_pressure\x18\b \x01(\x01R\x0eavgAirPressure\x120\n" +
+	"\x14avg_soil_temperature\x18\t \x01(\x01R\x12avgSoilTemperature2\xc6\x06\n" +
 	"\rGardenService\x12\x8c\x03\n" +
 	"\x10InsertSensorData\x12\".garden.v2.InsertSensorDataRequest\x1a#.garden.v2.InsertSensorDataResponse\"\xae\x02\x92A\xf6\x01\n" +
 	"\tGarden v2\x12#InsertSensorData (GardenService v2)\x1a\xb5\x01Insert a sensor measurement. Requires a hub service-account JWT carrying a `hub_id` claim. The probe is auto-bound to the calling hub on first sight; cross-hub spoofing is rejected.b\f\n" +
@@ -393,12 +429,13 @@ const file_garden_v2_garden_proto_rawDesc = "" +
 	"\tGarden v2\x12\x1dGetSummary (GardenService v2)\x1a\xa7\x01Aggregate sensor readings over a sliding window. Users only see data from probes attached to hubs they own. Optional `hub_id` filter narrows the scope to a single hub.b\f\n" +
 	"\n" +
 	"\n" +
-	"\x06bearer\x12\x00\x82\xd3\xe4\x93\x02(:\x01*\"#/garden.v2.GardenService/GetSummary\x1aC\x92A@\x12>Service for collecting and retrieving garden sensor data (v2).B\xf6\x04\x92A\xaf\x04\x12\x8a\x03\n" +
-	"\rGarden API v2\x12\xdc\x02API to collect and consult garden sensor data.\n" +
+	"\x06bearer\x12\x00\x82\xd3\xe4\x93\x02(:\x01*\"#/garden.v2.GardenService/GetSummary\x1aC\x92A@\x12>Service for collecting and retrieving garden sensor data (v2).B\xbe\x05\x92A\xf7\x04\x12\xd2\x03\n" +
+	"\rGarden API v2\x12\xa4\x03API to collect and consult garden sensor data.\n" +
 	"\n" +
 	"**v2 changes:**\n" +
 	"- Adds optional `hub_id` filter to GetSummary (lets clients scope queries to a single hub).\n" +
 	"- Each `SensorSummary` now carries the `hub_id` of the hub that owns the probe.\n" +
+	"- Sensor readings use explicit air/soil metric names plus air pressure.\n" +
 	"\n" +
 	"**Authentication:** All endpoints require Bearer token authentication (user JWT for reads, hub JWT for writes).\"\x15\n" +
 	"\x13Harvest Hub Project2\x032.0*\x02\x01\x022\x10application/json2\x11application/proto:\x10application/json:\x11application/protoZD\n" +
