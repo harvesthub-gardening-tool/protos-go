@@ -39,6 +39,9 @@ const (
 	// GardenServiceGetSummaryProcedure is the fully-qualified name of the GardenService's GetSummary
 	// RPC.
 	GardenServiceGetSummaryProcedure = "/garden.v2.GardenService/GetSummary"
+	// GardenServiceListProbesForHubNameProcedure is the fully-qualified name of the GardenService's
+	// ListProbesForHubName RPC.
+	GardenServiceListProbesForHubNameProcedure = "/garden.v2.GardenService/ListProbesForHubName"
 )
 
 // GardenServiceClient is a client for the garden.v2.GardenService service.
@@ -47,6 +50,8 @@ type GardenServiceClient interface {
 	InsertSensorData(context.Context, *connect.Request[v2.InsertSensorDataRequest]) (*connect.Response[v2.InsertSensorDataResponse], error)
 	// Read aggregated sensor data scoped to the caller's hubs.
 	GetSummary(context.Context, *connect.Request[v2.GetSummaryRequest]) (*connect.Response[v2.GetSummaryResponse], error)
+	// List all probes registered under a hub owned by the authenticated user. User-only.
+	ListProbesForHubName(context.Context, *connect.Request[v2.ListProbesForHubNameRequest]) (*connect.Response[v2.ListProbesForHubNameResponse], error)
 }
 
 // NewGardenServiceClient constructs a client for the garden.v2.GardenService service. By default,
@@ -72,13 +77,20 @@ func NewGardenServiceClient(httpClient connect.HTTPClient, baseURL string, opts 
 			connect.WithSchema(gardenServiceMethods.ByName("GetSummary")),
 			connect.WithClientOptions(opts...),
 		),
+		listProbesForHubName: connect.NewClient[v2.ListProbesForHubNameRequest, v2.ListProbesForHubNameResponse](
+			httpClient,
+			baseURL+GardenServiceListProbesForHubNameProcedure,
+			connect.WithSchema(gardenServiceMethods.ByName("ListProbesForHubName")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
 // gardenServiceClient implements GardenServiceClient.
 type gardenServiceClient struct {
-	insertSensorData *connect.Client[v2.InsertSensorDataRequest, v2.InsertSensorDataResponse]
-	getSummary       *connect.Client[v2.GetSummaryRequest, v2.GetSummaryResponse]
+	insertSensorData     *connect.Client[v2.InsertSensorDataRequest, v2.InsertSensorDataResponse]
+	getSummary           *connect.Client[v2.GetSummaryRequest, v2.GetSummaryResponse]
+	listProbesForHubName *connect.Client[v2.ListProbesForHubNameRequest, v2.ListProbesForHubNameResponse]
 }
 
 // InsertSensorData calls garden.v2.GardenService.InsertSensorData.
@@ -91,12 +103,19 @@ func (c *gardenServiceClient) GetSummary(ctx context.Context, req *connect.Reque
 	return c.getSummary.CallUnary(ctx, req)
 }
 
+// ListProbesForHubName calls garden.v2.GardenService.ListProbesForHubName.
+func (c *gardenServiceClient) ListProbesForHubName(ctx context.Context, req *connect.Request[v2.ListProbesForHubNameRequest]) (*connect.Response[v2.ListProbesForHubNameResponse], error) {
+	return c.listProbesForHubName.CallUnary(ctx, req)
+}
+
 // GardenServiceHandler is an implementation of the garden.v2.GardenService service.
 type GardenServiceHandler interface {
 	// Insert a new sensor measurement. Hub-only.
 	InsertSensorData(context.Context, *connect.Request[v2.InsertSensorDataRequest]) (*connect.Response[v2.InsertSensorDataResponse], error)
 	// Read aggregated sensor data scoped to the caller's hubs.
 	GetSummary(context.Context, *connect.Request[v2.GetSummaryRequest]) (*connect.Response[v2.GetSummaryResponse], error)
+	// List all probes registered under a hub owned by the authenticated user. User-only.
+	ListProbesForHubName(context.Context, *connect.Request[v2.ListProbesForHubNameRequest]) (*connect.Response[v2.ListProbesForHubNameResponse], error)
 }
 
 // NewGardenServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -118,12 +137,20 @@ func NewGardenServiceHandler(svc GardenServiceHandler, opts ...connect.HandlerOp
 		connect.WithSchema(gardenServiceMethods.ByName("GetSummary")),
 		connect.WithHandlerOptions(opts...),
 	)
+	gardenServiceListProbesForHubNameHandler := connect.NewUnaryHandler(
+		GardenServiceListProbesForHubNameProcedure,
+		svc.ListProbesForHubName,
+		connect.WithSchema(gardenServiceMethods.ByName("ListProbesForHubName")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/garden.v2.GardenService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case GardenServiceInsertSensorDataProcedure:
 			gardenServiceInsertSensorDataHandler.ServeHTTP(w, r)
 		case GardenServiceGetSummaryProcedure:
 			gardenServiceGetSummaryHandler.ServeHTTP(w, r)
+		case GardenServiceListProbesForHubNameProcedure:
+			gardenServiceListProbesForHubNameHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -139,4 +166,8 @@ func (UnimplementedGardenServiceHandler) InsertSensorData(context.Context, *conn
 
 func (UnimplementedGardenServiceHandler) GetSummary(context.Context, *connect.Request[v2.GetSummaryRequest]) (*connect.Response[v2.GetSummaryResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("garden.v2.GardenService.GetSummary is not implemented"))
+}
+
+func (UnimplementedGardenServiceHandler) ListProbesForHubName(context.Context, *connect.Request[v2.ListProbesForHubNameRequest]) (*connect.Response[v2.ListProbesForHubNameResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("garden.v2.GardenService.ListProbesForHubName is not implemented"))
 }

@@ -382,6 +382,139 @@ func (x *SensorSummary) GetAvgSoilTemperature() float64 {
 	return 0
 }
 
+type ListProbesForHubNameRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Human-readable hub name (matched against the hub_name set during AssociateHub).
+	HubName       string `protobuf:"bytes,1,opt,name=hub_name,json=hubName,proto3" json:"hub_name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListProbesForHubNameRequest) Reset() {
+	*x = ListProbesForHubNameRequest{}
+	mi := &file_garden_v2_garden_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListProbesForHubNameRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListProbesForHubNameRequest) ProtoMessage() {}
+
+func (x *ListProbesForHubNameRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_garden_v2_garden_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListProbesForHubNameRequest.ProtoReflect.Descriptor instead.
+func (*ListProbesForHubNameRequest) Descriptor() ([]byte, []int) {
+	return file_garden_v2_garden_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *ListProbesForHubNameRequest) GetHubName() string {
+	if x != nil {
+		return x.HubName
+	}
+	return ""
+}
+
+type ProbeInfo struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	NodeId        string                 `protobuf:"bytes,1,opt,name=node_id,json=nodeId,proto3" json:"node_id,omitempty"` // Probe identifier (BLE MAC or stable hardware ID).
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ProbeInfo) Reset() {
+	*x = ProbeInfo{}
+	mi := &file_garden_v2_garden_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ProbeInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ProbeInfo) ProtoMessage() {}
+
+func (x *ProbeInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_garden_v2_garden_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ProbeInfo.ProtoReflect.Descriptor instead.
+func (*ProbeInfo) Descriptor() ([]byte, []int) {
+	return file_garden_v2_garden_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *ProbeInfo) GetNodeId() string {
+	if x != nil {
+		return x.NodeId
+	}
+	return ""
+}
+
+type ListProbesForHubNameResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Probes        []*ProbeInfo           `protobuf:"bytes,1,rep,name=probes,proto3" json:"probes,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListProbesForHubNameResponse) Reset() {
+	*x = ListProbesForHubNameResponse{}
+	mi := &file_garden_v2_garden_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListProbesForHubNameResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListProbesForHubNameResponse) ProtoMessage() {}
+
+func (x *ListProbesForHubNameResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_garden_v2_garden_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListProbesForHubNameResponse.ProtoReflect.Descriptor instead.
+func (*ListProbesForHubNameResponse) Descriptor() ([]byte, []int) {
+	return file_garden_v2_garden_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *ListProbesForHubNameResponse) GetProbes() []*ProbeInfo {
+	if x != nil {
+		return x.Probes
+	}
+	return nil
+}
+
 var File_garden_v2_garden_proto protoreflect.FileDescriptor
 
 const file_garden_v2_garden_proto_rawDesc = "" +
@@ -417,7 +550,14 @@ const file_garden_v2_garden_proto_rawDesc = "" +
 	"\x13max_air_temperature\x18\x06 \x01(\x01R\x11maxAirTemperature\x12\x15\n" +
 	"\x06hub_id\x18\a \x01(\tR\x05hubId\x12(\n" +
 	"\x10avg_air_pressure\x18\b \x01(\x01R\x0eavgAirPressure\x120\n" +
-	"\x14avg_soil_temperature\x18\t \x01(\x01R\x12avgSoilTemperature2\xc6\x06\n" +
+	"\x14avg_soil_temperature\x18\t \x01(\x01R\x12avgSoilTemperature\"8\n" +
+	"\x1bListProbesForHubNameRequest\x12\x19\n" +
+	"\bhub_name\x18\x01 \x01(\tR\ahubName\"$\n" +
+	"\tProbeInfo\x12\x17\n" +
+	"\anode_id\x18\x01 \x01(\tR\x06nodeId\"L\n" +
+	"\x1cListProbesForHubNameResponse\x12,\n" +
+	"\x06probes\x18\x01 \x03(\v2\x14.garden.v2.ProbeInfoR\x06probes2\xc9\n" +
+	"\n" +
 	"\rGardenService\x12\x8c\x03\n" +
 	"\x10InsertSensorData\x12\".garden.v2.InsertSensorDataRequest\x1a#.garden.v2.InsertSensorDataResponse\"\xae\x02\x92A\xf6\x01\n" +
 	"\tGarden v2\x12#InsertSensorData (GardenService v2)\x1a\xb5\x01Insert a sensor measurement. Requires a hub service-account JWT carrying a `hub_id` claim. The probe is auto-bound to the calling hub on first sight; cross-hub spoofing is rejected.b\f\n" +
@@ -429,7 +569,12 @@ const file_garden_v2_garden_proto_rawDesc = "" +
 	"\tGarden v2\x12\x1dGetSummary (GardenService v2)\x1a\xa7\x01Aggregate sensor readings over a sliding window. Users only see data from probes attached to hubs they own. Optional `hub_id` filter narrows the scope to a single hub.b\f\n" +
 	"\n" +
 	"\n" +
-	"\x06bearer\x12\x00\x82\xd3\xe4\x93\x02(:\x01*\"#/garden.v2.GardenService/GetSummary\x1aC\x92A@\x12>Service for collecting and retrieving garden sensor data (v2).B\xbe\x05\x92A\xf7\x04\x12\xd2\x03\n" +
+	"\x06bearer\x12\x00\x82\xd3\xe4\x93\x02(:\x01*\"#/garden.v2.GardenService/GetSummary\x12\x80\x04\n" +
+	"\x14ListProbesForHubName\x12&.garden.v2.ListProbesForHubNameRequest\x1a'.garden.v2.ListProbesForHubNameResponse\"\x96\x03\x92A\xda\x02\n" +
+	"\tGarden v2\x12'ListProbesForHubName (GardenService v2)\x1a\x95\x02List all probes (sensor nodes) registered to the hub identified by `hub_name` among the hubs owned by the authenticated user. The server resolves the hub by fetching all hubs for the caller and matching on name. Returns NOT_FOUND if no hub with that name belongs to the caller.b\f\n" +
+	"\n" +
+	"\n" +
+	"\x06bearer\x12\x00\x82\xd3\xe4\x93\x022:\x01*\"-/garden.v2.GardenService/ListProbesForHubName\x1aC\x92A@\x12>Service for collecting and retrieving garden sensor data (v2).B\xbe\x05\x92A\xf7\x04\x12\xd2\x03\n" +
 	"\rGarden API v2\x12\xa4\x03API to collect and consult garden sensor data.\n" +
 	"\n" +
 	"**v2 changes:**\n" +
@@ -457,25 +602,31 @@ func file_garden_v2_garden_proto_rawDescGZIP() []byte {
 	return file_garden_v2_garden_proto_rawDescData
 }
 
-var file_garden_v2_garden_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_garden_v2_garden_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_garden_v2_garden_proto_goTypes = []any{
-	(*InsertSensorDataRequest)(nil),  // 0: garden.v2.InsertSensorDataRequest
-	(*InsertSensorDataResponse)(nil), // 1: garden.v2.InsertSensorDataResponse
-	(*GetSummaryRequest)(nil),        // 2: garden.v2.GetSummaryRequest
-	(*GetSummaryResponse)(nil),       // 3: garden.v2.GetSummaryResponse
-	(*SensorSummary)(nil),            // 4: garden.v2.SensorSummary
+	(*InsertSensorDataRequest)(nil),      // 0: garden.v2.InsertSensorDataRequest
+	(*InsertSensorDataResponse)(nil),     // 1: garden.v2.InsertSensorDataResponse
+	(*GetSummaryRequest)(nil),            // 2: garden.v2.GetSummaryRequest
+	(*GetSummaryResponse)(nil),           // 3: garden.v2.GetSummaryResponse
+	(*SensorSummary)(nil),                // 4: garden.v2.SensorSummary
+	(*ListProbesForHubNameRequest)(nil),  // 5: garden.v2.ListProbesForHubNameRequest
+	(*ProbeInfo)(nil),                    // 6: garden.v2.ProbeInfo
+	(*ListProbesForHubNameResponse)(nil), // 7: garden.v2.ListProbesForHubNameResponse
 }
 var file_garden_v2_garden_proto_depIdxs = []int32{
 	4, // 0: garden.v2.GetSummaryResponse.summaries:type_name -> garden.v2.SensorSummary
-	0, // 1: garden.v2.GardenService.InsertSensorData:input_type -> garden.v2.InsertSensorDataRequest
-	2, // 2: garden.v2.GardenService.GetSummary:input_type -> garden.v2.GetSummaryRequest
-	1, // 3: garden.v2.GardenService.InsertSensorData:output_type -> garden.v2.InsertSensorDataResponse
-	3, // 4: garden.v2.GardenService.GetSummary:output_type -> garden.v2.GetSummaryResponse
-	3, // [3:5] is the sub-list for method output_type
-	1, // [1:3] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	6, // 1: garden.v2.ListProbesForHubNameResponse.probes:type_name -> garden.v2.ProbeInfo
+	0, // 2: garden.v2.GardenService.InsertSensorData:input_type -> garden.v2.InsertSensorDataRequest
+	2, // 3: garden.v2.GardenService.GetSummary:input_type -> garden.v2.GetSummaryRequest
+	5, // 4: garden.v2.GardenService.ListProbesForHubName:input_type -> garden.v2.ListProbesForHubNameRequest
+	1, // 5: garden.v2.GardenService.InsertSensorData:output_type -> garden.v2.InsertSensorDataResponse
+	3, // 6: garden.v2.GardenService.GetSummary:output_type -> garden.v2.GetSummaryResponse
+	7, // 7: garden.v2.GardenService.ListProbesForHubName:output_type -> garden.v2.ListProbesForHubNameResponse
+	5, // [5:8] is the sub-list for method output_type
+	2, // [2:5] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_garden_v2_garden_proto_init() }
@@ -490,7 +641,7 @@ func file_garden_v2_garden_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_garden_v2_garden_proto_rawDesc), len(file_garden_v2_garden_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   5,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
