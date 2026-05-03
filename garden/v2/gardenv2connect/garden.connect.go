@@ -42,6 +42,8 @@ const (
 	// GardenServiceListProbesForHubNameProcedure is the fully-qualified name of the GardenService's
 	// ListProbesForHubName RPC.
 	GardenServiceListProbesForHubNameProcedure = "/garden.v2.GardenService/ListProbesForHubName"
+	// GardenServiceGetLastProcedure is the fully-qualified name of the GardenService's GetLast RPC.
+	GardenServiceGetLastProcedure = "/garden.v2.GardenService/GetLast"
 )
 
 // GardenServiceClient is a client for the garden.v2.GardenService service.
@@ -52,6 +54,8 @@ type GardenServiceClient interface {
 	GetSummary(context.Context, *connect.Request[v2.GetSummaryRequest]) (*connect.Response[v2.GetSummaryResponse], error)
 	// List all probes registered under a hub owned by the authenticated user. User-only.
 	ListProbesForHubName(context.Context, *connect.Request[v2.ListProbesForHubNameRequest]) (*connect.Response[v2.ListProbesForHubNameResponse], error)
+	// Return the most recent sensor reading for a probe owned by the caller. User-only.
+	GetLast(context.Context, *connect.Request[v2.GetLastRequest]) (*connect.Response[v2.GetLastResponse], error)
 }
 
 // NewGardenServiceClient constructs a client for the garden.v2.GardenService service. By default,
@@ -83,6 +87,12 @@ func NewGardenServiceClient(httpClient connect.HTTPClient, baseURL string, opts 
 			connect.WithSchema(gardenServiceMethods.ByName("ListProbesForHubName")),
 			connect.WithClientOptions(opts...),
 		),
+		getLast: connect.NewClient[v2.GetLastRequest, v2.GetLastResponse](
+			httpClient,
+			baseURL+GardenServiceGetLastProcedure,
+			connect.WithSchema(gardenServiceMethods.ByName("GetLast")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
@@ -91,6 +101,7 @@ type gardenServiceClient struct {
 	insertSensorData     *connect.Client[v2.InsertSensorDataRequest, v2.InsertSensorDataResponse]
 	getSummary           *connect.Client[v2.GetSummaryRequest, v2.GetSummaryResponse]
 	listProbesForHubName *connect.Client[v2.ListProbesForHubNameRequest, v2.ListProbesForHubNameResponse]
+	getLast              *connect.Client[v2.GetLastRequest, v2.GetLastResponse]
 }
 
 // InsertSensorData calls garden.v2.GardenService.InsertSensorData.
@@ -108,6 +119,11 @@ func (c *gardenServiceClient) ListProbesForHubName(ctx context.Context, req *con
 	return c.listProbesForHubName.CallUnary(ctx, req)
 }
 
+// GetLast calls garden.v2.GardenService.GetLast.
+func (c *gardenServiceClient) GetLast(ctx context.Context, req *connect.Request[v2.GetLastRequest]) (*connect.Response[v2.GetLastResponse], error) {
+	return c.getLast.CallUnary(ctx, req)
+}
+
 // GardenServiceHandler is an implementation of the garden.v2.GardenService service.
 type GardenServiceHandler interface {
 	// Insert a new sensor measurement. Hub-only.
@@ -116,6 +132,8 @@ type GardenServiceHandler interface {
 	GetSummary(context.Context, *connect.Request[v2.GetSummaryRequest]) (*connect.Response[v2.GetSummaryResponse], error)
 	// List all probes registered under a hub owned by the authenticated user. User-only.
 	ListProbesForHubName(context.Context, *connect.Request[v2.ListProbesForHubNameRequest]) (*connect.Response[v2.ListProbesForHubNameResponse], error)
+	// Return the most recent sensor reading for a probe owned by the caller. User-only.
+	GetLast(context.Context, *connect.Request[v2.GetLastRequest]) (*connect.Response[v2.GetLastResponse], error)
 }
 
 // NewGardenServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -143,6 +161,12 @@ func NewGardenServiceHandler(svc GardenServiceHandler, opts ...connect.HandlerOp
 		connect.WithSchema(gardenServiceMethods.ByName("ListProbesForHubName")),
 		connect.WithHandlerOptions(opts...),
 	)
+	gardenServiceGetLastHandler := connect.NewUnaryHandler(
+		GardenServiceGetLastProcedure,
+		svc.GetLast,
+		connect.WithSchema(gardenServiceMethods.ByName("GetLast")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/garden.v2.GardenService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case GardenServiceInsertSensorDataProcedure:
@@ -151,6 +175,8 @@ func NewGardenServiceHandler(svc GardenServiceHandler, opts ...connect.HandlerOp
 			gardenServiceGetSummaryHandler.ServeHTTP(w, r)
 		case GardenServiceListProbesForHubNameProcedure:
 			gardenServiceListProbesForHubNameHandler.ServeHTTP(w, r)
+		case GardenServiceGetLastProcedure:
+			gardenServiceGetLastHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -170,4 +196,8 @@ func (UnimplementedGardenServiceHandler) GetSummary(context.Context, *connect.Re
 
 func (UnimplementedGardenServiceHandler) ListProbesForHubName(context.Context, *connect.Request[v2.ListProbesForHubNameRequest]) (*connect.Response[v2.ListProbesForHubNameResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("garden.v2.GardenService.ListProbesForHubName is not implemented"))
+}
+
+func (UnimplementedGardenServiceHandler) GetLast(context.Context, *connect.Request[v2.GetLastRequest]) (*connect.Response[v2.GetLastResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("garden.v2.GardenService.GetLast is not implemented"))
 }

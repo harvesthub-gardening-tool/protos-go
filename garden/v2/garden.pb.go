@@ -515,6 +515,186 @@ func (x *ListProbesForHubNameResponse) GetProbes() []*ProbeInfo {
 	return nil
 }
 
+type SensorReading struct {
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	NodeId          string                 `protobuf:"bytes,1,opt,name=node_id,json=nodeId,proto3" json:"node_id,omitempty"`                              // Probe identifier (BLE MAC or stable hardware ID).
+	Time            int64                  `protobuf:"varint,2,opt,name=time,proto3" json:"time,omitempty"`                                               // Unix milliseconds of the reading timestamp.
+	AirTemperature  float64                `protobuf:"fixed64,3,opt,name=air_temperature,json=airTemperature,proto3" json:"air_temperature,omitempty"`    // Celsius
+	AirPressure     float64                `protobuf:"fixed64,4,opt,name=air_pressure,json=airPressure,proto3" json:"air_pressure,omitempty"`             // Pascals
+	AirHumidity     float64                `protobuf:"fixed64,5,opt,name=air_humidity,json=airHumidity,proto3" json:"air_humidity,omitempty"`             // Percent (0-100)
+	SoilTemperature float64                `protobuf:"fixed64,6,opt,name=soil_temperature,json=soilTemperature,proto3" json:"soil_temperature,omitempty"` // Celsius
+	SoilHumidity    float64                `protobuf:"fixed64,7,opt,name=soil_humidity,json=soilHumidity,proto3" json:"soil_humidity,omitempty"`          // Percent (0-100)
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *SensorReading) Reset() {
+	*x = SensorReading{}
+	mi := &file_garden_v2_garden_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SensorReading) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SensorReading) ProtoMessage() {}
+
+func (x *SensorReading) ProtoReflect() protoreflect.Message {
+	mi := &file_garden_v2_garden_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SensorReading.ProtoReflect.Descriptor instead.
+func (*SensorReading) Descriptor() ([]byte, []int) {
+	return file_garden_v2_garden_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *SensorReading) GetNodeId() string {
+	if x != nil {
+		return x.NodeId
+	}
+	return ""
+}
+
+func (x *SensorReading) GetTime() int64 {
+	if x != nil {
+		return x.Time
+	}
+	return 0
+}
+
+func (x *SensorReading) GetAirTemperature() float64 {
+	if x != nil {
+		return x.AirTemperature
+	}
+	return 0
+}
+
+func (x *SensorReading) GetAirPressure() float64 {
+	if x != nil {
+		return x.AirPressure
+	}
+	return 0
+}
+
+func (x *SensorReading) GetAirHumidity() float64 {
+	if x != nil {
+		return x.AirHumidity
+	}
+	return 0
+}
+
+func (x *SensorReading) GetSoilTemperature() float64 {
+	if x != nil {
+		return x.SoilTemperature
+	}
+	return 0
+}
+
+func (x *SensorReading) GetSoilHumidity() float64 {
+	if x != nil {
+		return x.SoilHumidity
+	}
+	return 0
+}
+
+type GetLastRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	NodeId        string                 `protobuf:"bytes,1,opt,name=node_id,json=nodeId,proto3" json:"node_id,omitempty"` // Probe identifier (BLE MAC or stable hardware ID).
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetLastRequest) Reset() {
+	*x = GetLastRequest{}
+	mi := &file_garden_v2_garden_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetLastRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetLastRequest) ProtoMessage() {}
+
+func (x *GetLastRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_garden_v2_garden_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetLastRequest.ProtoReflect.Descriptor instead.
+func (*GetLastRequest) Descriptor() ([]byte, []int) {
+	return file_garden_v2_garden_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *GetLastRequest) GetNodeId() string {
+	if x != nil {
+		return x.NodeId
+	}
+	return ""
+}
+
+type GetLastResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Reading       *SensorReading         `protobuf:"bytes,1,opt,name=reading,proto3" json:"reading,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetLastResponse) Reset() {
+	*x = GetLastResponse{}
+	mi := &file_garden_v2_garden_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetLastResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetLastResponse) ProtoMessage() {}
+
+func (x *GetLastResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_garden_v2_garden_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetLastResponse.ProtoReflect.Descriptor instead.
+func (*GetLastResponse) Descriptor() ([]byte, []int) {
+	return file_garden_v2_garden_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *GetLastResponse) GetReading() *SensorReading {
+	if x != nil {
+		return x.Reading
+	}
+	return nil
+}
+
 var File_garden_v2_garden_proto protoreflect.FileDescriptor
 
 const file_garden_v2_garden_proto_rawDesc = "" +
@@ -556,8 +736,19 @@ const file_garden_v2_garden_proto_rawDesc = "" +
 	"\tProbeInfo\x12\x17\n" +
 	"\anode_id\x18\x01 \x01(\tR\x06nodeId\"L\n" +
 	"\x1cListProbesForHubNameResponse\x12,\n" +
-	"\x06probes\x18\x01 \x03(\v2\x14.garden.v2.ProbeInfoR\x06probes2\xc9\n" +
-	"\n" +
+	"\x06probes\x18\x01 \x03(\v2\x14.garden.v2.ProbeInfoR\x06probes\"\xfb\x01\n" +
+	"\rSensorReading\x12\x17\n" +
+	"\anode_id\x18\x01 \x01(\tR\x06nodeId\x12\x12\n" +
+	"\x04time\x18\x02 \x01(\x03R\x04time\x12'\n" +
+	"\x0fair_temperature\x18\x03 \x01(\x01R\x0eairTemperature\x12!\n" +
+	"\fair_pressure\x18\x04 \x01(\x01R\vairPressure\x12!\n" +
+	"\fair_humidity\x18\x05 \x01(\x01R\vairHumidity\x12)\n" +
+	"\x10soil_temperature\x18\x06 \x01(\x01R\x0fsoilTemperature\x12#\n" +
+	"\rsoil_humidity\x18\a \x01(\x01R\fsoilHumidity\")\n" +
+	"\x0eGetLastRequest\x12\x17\n" +
+	"\anode_id\x18\x01 \x01(\tR\x06nodeId\"E\n" +
+	"\x0fGetLastResponse\x122\n" +
+	"\areading\x18\x01 \x01(\v2\x18.garden.v2.SensorReadingR\areading2\xf8\r\n" +
 	"\rGardenService\x12\x8c\x03\n" +
 	"\x10InsertSensorData\x12\".garden.v2.InsertSensorDataRequest\x1a#.garden.v2.InsertSensorDataResponse\"\xae\x02\x92A\xf6\x01\n" +
 	"\tGarden v2\x12#InsertSensorData (GardenService v2)\x1a\xb5\x01Insert a sensor measurement. Requires a hub service-account JWT carrying a `hub_id` claim. The probe is auto-bound to the calling hub on first sight; cross-hub spoofing is rejected.b\f\n" +
@@ -574,7 +765,12 @@ const file_garden_v2_garden_proto_rawDesc = "" +
 	"\tGarden v2\x12'ListProbesForHubName (GardenService v2)\x1a\x95\x02List all probes (sensor nodes) registered to the hub identified by `hub_name` among the hubs owned by the authenticated user. The server resolves the hub by fetching all hubs for the caller and matching on name. Returns NOT_FOUND if no hub with that name belongs to the caller.b\f\n" +
 	"\n" +
 	"\n" +
-	"\x06bearer\x12\x00\x82\xd3\xe4\x93\x022:\x01*\"-/garden.v2.GardenService/ListProbesForHubName\x1aC\x92A@\x12>Service for collecting and retrieving garden sensor data (v2).B\xbe\x05\x92A\xf7\x04\x12\xd2\x03\n" +
+	"\x06bearer\x12\x00\x82\xd3\xe4\x93\x022:\x01*\"-/garden.v2.GardenService/ListProbesForHubName\x12\xac\x03\n" +
+	"\aGetLast\x12\x19.garden.v2.GetLastRequest\x1a\x1a.garden.v2.GetLastResponse\"\xe9\x02\x92A\xba\x02\n" +
+	"\tGarden v2\x12\x1aGetLast (GardenService v2)\x1a\x82\x02Returns the single most recent sensor reading for the given probe. The probe must be bound to a hub owned by the authenticated user; if the probe does not exist, has no data, or belongs to a different user, NOT_FOUND is returned. Only user JWTs are accepted.b\f\n" +
+	"\n" +
+	"\n" +
+	"\x06bearer\x12\x00\x82\xd3\xe4\x93\x02%:\x01*\" /garden.v2.GardenService/GetLast\x1aC\x92A@\x12>Service for collecting and retrieving garden sensor data (v2).B\xbe\x05\x92A\xf7\x04\x12\xd2\x03\n" +
 	"\rGarden API v2\x12\xa4\x03API to collect and consult garden sensor data.\n" +
 	"\n" +
 	"**v2 changes:**\n" +
@@ -602,7 +798,7 @@ func file_garden_v2_garden_proto_rawDescGZIP() []byte {
 	return file_garden_v2_garden_proto_rawDescData
 }
 
-var file_garden_v2_garden_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_garden_v2_garden_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_garden_v2_garden_proto_goTypes = []any{
 	(*InsertSensorDataRequest)(nil),      // 0: garden.v2.InsertSensorDataRequest
 	(*InsertSensorDataResponse)(nil),     // 1: garden.v2.InsertSensorDataResponse
@@ -612,21 +808,27 @@ var file_garden_v2_garden_proto_goTypes = []any{
 	(*ListProbesForHubNameRequest)(nil),  // 5: garden.v2.ListProbesForHubNameRequest
 	(*ProbeInfo)(nil),                    // 6: garden.v2.ProbeInfo
 	(*ListProbesForHubNameResponse)(nil), // 7: garden.v2.ListProbesForHubNameResponse
+	(*SensorReading)(nil),                // 8: garden.v2.SensorReading
+	(*GetLastRequest)(nil),               // 9: garden.v2.GetLastRequest
+	(*GetLastResponse)(nil),              // 10: garden.v2.GetLastResponse
 }
 var file_garden_v2_garden_proto_depIdxs = []int32{
-	4, // 0: garden.v2.GetSummaryResponse.summaries:type_name -> garden.v2.SensorSummary
-	6, // 1: garden.v2.ListProbesForHubNameResponse.probes:type_name -> garden.v2.ProbeInfo
-	0, // 2: garden.v2.GardenService.InsertSensorData:input_type -> garden.v2.InsertSensorDataRequest
-	2, // 3: garden.v2.GardenService.GetSummary:input_type -> garden.v2.GetSummaryRequest
-	5, // 4: garden.v2.GardenService.ListProbesForHubName:input_type -> garden.v2.ListProbesForHubNameRequest
-	1, // 5: garden.v2.GardenService.InsertSensorData:output_type -> garden.v2.InsertSensorDataResponse
-	3, // 6: garden.v2.GardenService.GetSummary:output_type -> garden.v2.GetSummaryResponse
-	7, // 7: garden.v2.GardenService.ListProbesForHubName:output_type -> garden.v2.ListProbesForHubNameResponse
-	5, // [5:8] is the sub-list for method output_type
-	2, // [2:5] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	4,  // 0: garden.v2.GetSummaryResponse.summaries:type_name -> garden.v2.SensorSummary
+	6,  // 1: garden.v2.ListProbesForHubNameResponse.probes:type_name -> garden.v2.ProbeInfo
+	8,  // 2: garden.v2.GetLastResponse.reading:type_name -> garden.v2.SensorReading
+	0,  // 3: garden.v2.GardenService.InsertSensorData:input_type -> garden.v2.InsertSensorDataRequest
+	2,  // 4: garden.v2.GardenService.GetSummary:input_type -> garden.v2.GetSummaryRequest
+	5,  // 5: garden.v2.GardenService.ListProbesForHubName:input_type -> garden.v2.ListProbesForHubNameRequest
+	9,  // 6: garden.v2.GardenService.GetLast:input_type -> garden.v2.GetLastRequest
+	1,  // 7: garden.v2.GardenService.InsertSensorData:output_type -> garden.v2.InsertSensorDataResponse
+	3,  // 8: garden.v2.GardenService.GetSummary:output_type -> garden.v2.GetSummaryResponse
+	7,  // 9: garden.v2.GardenService.ListProbesForHubName:output_type -> garden.v2.ListProbesForHubNameResponse
+	10, // 10: garden.v2.GardenService.GetLast:output_type -> garden.v2.GetLastResponse
+	7,  // [7:11] is the sub-list for method output_type
+	3,  // [3:7] is the sub-list for method input_type
+	3,  // [3:3] is the sub-list for extension type_name
+	3,  // [3:3] is the sub-list for extension extendee
+	0,  // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_garden_v2_garden_proto_init() }
@@ -641,7 +843,7 @@ func file_garden_v2_garden_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_garden_v2_garden_proto_rawDesc), len(file_garden_v2_garden_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   8,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
