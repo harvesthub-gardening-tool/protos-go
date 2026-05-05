@@ -47,6 +47,11 @@ const (
 	AuthServiceListHubsProcedure = "/auth.v2.AuthService/ListHubs"
 	// AuthServiceRevokeHubProcedure is the fully-qualified name of the AuthService's RevokeHub RPC.
 	AuthServiceRevokeHubProcedure = "/auth.v2.AuthService/RevokeHub"
+	// AuthServiceChangeEmailProcedure is the fully-qualified name of the AuthService's ChangeEmail RPC.
+	AuthServiceChangeEmailProcedure = "/auth.v2.AuthService/ChangeEmail"
+	// AuthServiceChangePasswordProcedure is the fully-qualified name of the AuthService's
+	// ChangePassword RPC.
+	AuthServiceChangePasswordProcedure = "/auth.v2.AuthService/ChangePassword"
 )
 
 // AuthServiceClient is a client for the auth.v2.AuthService service.
@@ -60,6 +65,8 @@ type AuthServiceClient interface {
 	ClaimHubToken(context.Context, *connect.Request[v2.ClaimHubTokenRequest]) (*connect.Response[v2.ClaimHubTokenResponse], error)
 	ListHubs(context.Context, *connect.Request[v2.ListHubsRequest]) (*connect.Response[v2.ListHubsResponse], error)
 	RevokeHub(context.Context, *connect.Request[v2.RevokeHubRequest]) (*connect.Response[v2.RevokeHubResponse], error)
+	ChangeEmail(context.Context, *connect.Request[v2.ChangeEmailRequest]) (*connect.Response[v2.ChangeEmailResponse], error)
+	ChangePassword(context.Context, *connect.Request[v2.ChangePasswordRequest]) (*connect.Response[v2.ChangePasswordResponse], error)
 }
 
 // NewAuthServiceClient constructs a client for the auth.v2.AuthService service. By default, it uses
@@ -109,17 +116,31 @@ func NewAuthServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 			connect.WithSchema(authServiceMethods.ByName("RevokeHub")),
 			connect.WithClientOptions(opts...),
 		),
+		changeEmail: connect.NewClient[v2.ChangeEmailRequest, v2.ChangeEmailResponse](
+			httpClient,
+			baseURL+AuthServiceChangeEmailProcedure,
+			connect.WithSchema(authServiceMethods.ByName("ChangeEmail")),
+			connect.WithClientOptions(opts...),
+		),
+		changePassword: connect.NewClient[v2.ChangePasswordRequest, v2.ChangePasswordResponse](
+			httpClient,
+			baseURL+AuthServiceChangePasswordProcedure,
+			connect.WithSchema(authServiceMethods.ByName("ChangePassword")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
 // authServiceClient implements AuthServiceClient.
 type authServiceClient struct {
-	register      *connect.Client[v2.RegisterRequest, v2.RegisterResponse]
-	login         *connect.Client[v2.LoginRequest, v2.LoginResponse]
-	associateHub  *connect.Client[v2.AssociateHubRequest, v2.AssociateHubResponse]
-	claimHubToken *connect.Client[v2.ClaimHubTokenRequest, v2.ClaimHubTokenResponse]
-	listHubs      *connect.Client[v2.ListHubsRequest, v2.ListHubsResponse]
-	revokeHub     *connect.Client[v2.RevokeHubRequest, v2.RevokeHubResponse]
+	register       *connect.Client[v2.RegisterRequest, v2.RegisterResponse]
+	login          *connect.Client[v2.LoginRequest, v2.LoginResponse]
+	associateHub   *connect.Client[v2.AssociateHubRequest, v2.AssociateHubResponse]
+	claimHubToken  *connect.Client[v2.ClaimHubTokenRequest, v2.ClaimHubTokenResponse]
+	listHubs       *connect.Client[v2.ListHubsRequest, v2.ListHubsResponse]
+	revokeHub      *connect.Client[v2.RevokeHubRequest, v2.RevokeHubResponse]
+	changeEmail    *connect.Client[v2.ChangeEmailRequest, v2.ChangeEmailResponse]
+	changePassword *connect.Client[v2.ChangePasswordRequest, v2.ChangePasswordResponse]
 }
 
 // Register calls auth.v2.AuthService.Register.
@@ -152,6 +173,16 @@ func (c *authServiceClient) RevokeHub(ctx context.Context, req *connect.Request[
 	return c.revokeHub.CallUnary(ctx, req)
 }
 
+// ChangeEmail calls auth.v2.AuthService.ChangeEmail.
+func (c *authServiceClient) ChangeEmail(ctx context.Context, req *connect.Request[v2.ChangeEmailRequest]) (*connect.Response[v2.ChangeEmailResponse], error) {
+	return c.changeEmail.CallUnary(ctx, req)
+}
+
+// ChangePassword calls auth.v2.AuthService.ChangePassword.
+func (c *authServiceClient) ChangePassword(ctx context.Context, req *connect.Request[v2.ChangePasswordRequest]) (*connect.Response[v2.ChangePasswordResponse], error) {
+	return c.changePassword.CallUnary(ctx, req)
+}
+
 // AuthServiceHandler is an implementation of the auth.v2.AuthService service.
 type AuthServiceHandler interface {
 	// Public — no token required
@@ -163,6 +194,8 @@ type AuthServiceHandler interface {
 	ClaimHubToken(context.Context, *connect.Request[v2.ClaimHubTokenRequest]) (*connect.Response[v2.ClaimHubTokenResponse], error)
 	ListHubs(context.Context, *connect.Request[v2.ListHubsRequest]) (*connect.Response[v2.ListHubsResponse], error)
 	RevokeHub(context.Context, *connect.Request[v2.RevokeHubRequest]) (*connect.Response[v2.RevokeHubResponse], error)
+	ChangeEmail(context.Context, *connect.Request[v2.ChangeEmailRequest]) (*connect.Response[v2.ChangeEmailResponse], error)
+	ChangePassword(context.Context, *connect.Request[v2.ChangePasswordRequest]) (*connect.Response[v2.ChangePasswordResponse], error)
 }
 
 // NewAuthServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -208,6 +241,18 @@ func NewAuthServiceHandler(svc AuthServiceHandler, opts ...connect.HandlerOption
 		connect.WithSchema(authServiceMethods.ByName("RevokeHub")),
 		connect.WithHandlerOptions(opts...),
 	)
+	authServiceChangeEmailHandler := connect.NewUnaryHandler(
+		AuthServiceChangeEmailProcedure,
+		svc.ChangeEmail,
+		connect.WithSchema(authServiceMethods.ByName("ChangeEmail")),
+		connect.WithHandlerOptions(opts...),
+	)
+	authServiceChangePasswordHandler := connect.NewUnaryHandler(
+		AuthServiceChangePasswordProcedure,
+		svc.ChangePassword,
+		connect.WithSchema(authServiceMethods.ByName("ChangePassword")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/auth.v2.AuthService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case AuthServiceRegisterProcedure:
@@ -222,6 +267,10 @@ func NewAuthServiceHandler(svc AuthServiceHandler, opts ...connect.HandlerOption
 			authServiceListHubsHandler.ServeHTTP(w, r)
 		case AuthServiceRevokeHubProcedure:
 			authServiceRevokeHubHandler.ServeHTTP(w, r)
+		case AuthServiceChangeEmailProcedure:
+			authServiceChangeEmailHandler.ServeHTTP(w, r)
+		case AuthServiceChangePasswordProcedure:
+			authServiceChangePasswordHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -253,4 +302,12 @@ func (UnimplementedAuthServiceHandler) ListHubs(context.Context, *connect.Reques
 
 func (UnimplementedAuthServiceHandler) RevokeHub(context.Context, *connect.Request[v2.RevokeHubRequest]) (*connect.Response[v2.RevokeHubResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("auth.v2.AuthService.RevokeHub is not implemented"))
+}
+
+func (UnimplementedAuthServiceHandler) ChangeEmail(context.Context, *connect.Request[v2.ChangeEmailRequest]) (*connect.Response[v2.ChangeEmailResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("auth.v2.AuthService.ChangeEmail is not implemented"))
+}
+
+func (UnimplementedAuthServiceHandler) ChangePassword(context.Context, *connect.Request[v2.ChangePasswordRequest]) (*connect.Response[v2.ChangePasswordResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("auth.v2.AuthService.ChangePassword is not implemented"))
 }

@@ -691,6 +691,190 @@ func (*RevokeHubResponse) Descriptor() ([]byte, []int) {
 	return file_auth_v2_auth_proto_rawDescGZIP(), []int{12}
 }
 
+type ChangeEmailRequest struct {
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	NewEmail        string                 `protobuf:"bytes,1,opt,name=new_email,json=newEmail,proto3" json:"new_email,omitempty"`
+	CurrentPassword string                 `protobuf:"bytes,2,opt,name=current_password,json=currentPassword,proto3" json:"current_password,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *ChangeEmailRequest) Reset() {
+	*x = ChangeEmailRequest{}
+	mi := &file_auth_v2_auth_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChangeEmailRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChangeEmailRequest) ProtoMessage() {}
+
+func (x *ChangeEmailRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_v2_auth_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChangeEmailRequest.ProtoReflect.Descriptor instead.
+func (*ChangeEmailRequest) Descriptor() ([]byte, []int) {
+	return file_auth_v2_auth_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *ChangeEmailRequest) GetNewEmail() string {
+	if x != nil {
+		return x.NewEmail
+	}
+	return ""
+}
+
+func (x *ChangeEmailRequest) GetCurrentPassword() string {
+	if x != nil {
+		return x.CurrentPassword
+	}
+	return ""
+}
+
+type ChangeEmailResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ChangeEmailResponse) Reset() {
+	*x = ChangeEmailResponse{}
+	mi := &file_auth_v2_auth_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChangeEmailResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChangeEmailResponse) ProtoMessage() {}
+
+func (x *ChangeEmailResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_v2_auth_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChangeEmailResponse.ProtoReflect.Descriptor instead.
+func (*ChangeEmailResponse) Descriptor() ([]byte, []int) {
+	return file_auth_v2_auth_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *ChangeEmailResponse) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
+type ChangePasswordRequest struct {
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	CurrentPassword string                 `protobuf:"bytes,1,opt,name=current_password,json=currentPassword,proto3" json:"current_password,omitempty"`
+	NewPassword     string                 `protobuf:"bytes,2,opt,name=new_password,json=newPassword,proto3" json:"new_password,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *ChangePasswordRequest) Reset() {
+	*x = ChangePasswordRequest{}
+	mi := &file_auth_v2_auth_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChangePasswordRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChangePasswordRequest) ProtoMessage() {}
+
+func (x *ChangePasswordRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_v2_auth_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChangePasswordRequest.ProtoReflect.Descriptor instead.
+func (*ChangePasswordRequest) Descriptor() ([]byte, []int) {
+	return file_auth_v2_auth_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *ChangePasswordRequest) GetCurrentPassword() string {
+	if x != nil {
+		return x.CurrentPassword
+	}
+	return ""
+}
+
+func (x *ChangePasswordRequest) GetNewPassword() string {
+	if x != nil {
+		return x.NewPassword
+	}
+	return ""
+}
+
+type ChangePasswordResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ChangePasswordResponse) Reset() {
+	*x = ChangePasswordResponse{}
+	mi := &file_auth_v2_auth_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChangePasswordResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChangePasswordResponse) ProtoMessage() {}
+
+func (x *ChangePasswordResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_v2_auth_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChangePasswordResponse.ProtoReflect.Descriptor instead.
+func (*ChangePasswordResponse) Descriptor() ([]byte, []int) {
+	return file_auth_v2_auth_proto_rawDescGZIP(), []int{16}
+}
+
 var File_auth_v2_auth_proto protoreflect.FileDescriptor
 
 const file_auth_v2_auth_proto_rawDesc = "" +
@@ -735,7 +919,16 @@ const file_auth_v2_auth_proto_rawDesc = "" +
 	"\x04hubs\x18\x01 \x03(\v2\x10.auth.v2.HubInfoR\x04hubs\")\n" +
 	"\x10RevokeHubRequest\x12\x15\n" +
 	"\x06hub_id\x18\x01 \x01(\tR\x05hubId\"\x13\n" +
-	"\x11RevokeHubResponse2\x95\x10\n" +
+	"\x11RevokeHubResponse\"\\\n" +
+	"\x12ChangeEmailRequest\x12\x1b\n" +
+	"\tnew_email\x18\x01 \x01(\tR\bnewEmail\x12)\n" +
+	"\x10current_password\x18\x02 \x01(\tR\x0fcurrentPassword\"+\n" +
+	"\x13ChangeEmailResponse\x12\x14\n" +
+	"\x05token\x18\x01 \x01(\tR\x05token\"e\n" +
+	"\x15ChangePasswordRequest\x12)\n" +
+	"\x10current_password\x18\x01 \x01(\tR\x0fcurrentPassword\x12!\n" +
+	"\fnew_password\x18\x02 \x01(\tR\vnewPassword\"\x18\n" +
+	"\x16ChangePasswordResponse2\xd5\x15\n" +
 	"\vAuthService\x12\xdc\x01\n" +
 	"\bRegister\x12\x18.auth.v2.RegisterRequest\x1a\x19.auth.v2.RegisterResponse\"\x9a\x01\x92Ao\n" +
 	"\aAuth v2\x12\x19Register (AuthService v2)\x1aGCreate a new user account. Returns a user JWT token valid for 24 hours.b\x00\x82\xd3\xe4\x93\x02\":\x01*\"\x1d/auth.v2.AuthService/Register\x12\xca\x01\n" +
@@ -757,11 +950,21 @@ const file_auth_v2_auth_proto_rawDesc = "" +
 	"\aAuth v2\x12\x1aRevokeHub (AuthService v2)\x1a\xa4\x01Revoke the association between a hub and the authenticated user. Revokes the underlying hub token; the hub will be unable to insert sensor data until re-associated.b\f\n" +
 	"\n" +
 	"\n" +
-	"\x06bearer\x12\x00\x82\xd3\xe4\x93\x02#:\x01*\"\x1e/auth.v2.AuthService/RevokeHub\x1a<\x92A9\x127User authentication and QR-based hub provisioning (v2).B\xd4\t\x92A\x91\t\x12\xf5\a\n" +
-	"\vAuth API v2\x12\xc9\aAuth API v2 — QR-based hub provisioning.\n" +
+	"\x06bearer\x12\x00\x82\xd3\xe4\x93\x02#:\x01*\"\x1e/auth.v2.AuthService/RevokeHub\x12\x84\x03\n" +
+	"\vChangeEmail\x12\x1b.auth.v2.ChangeEmailRequest\x1a\x1c.auth.v2.ChangeEmailResponse\"\xb9\x02\x92A\x8a\x02\n" +
+	"\aAuth v2\x12\x1cChangeEmail (AuthService v2)\x1a\xd2\x01Change the authenticated user's email in-app. Requires a valid user bearer token and current password confirmation; no email verification link is sent. Returns a refreshed user JWT carrying the new email claim.b\f\n" +
+	"\n" +
+	"\n" +
+	"\x06bearer\x12\x00\x82\xd3\xe4\x93\x02%:\x01*\" /auth.v2.AuthService/ChangeEmail\x12\xb6\x02\n" +
+	"\x0eChangePassword\x12\x1e.auth.v2.ChangePasswordRequest\x1a\x1f.auth.v2.ChangePasswordResponse\"\xe2\x01\x92A\xb0\x01\n" +
+	"\aAuth v2\x12\x1fChangePassword (AuthService v2)\x1avChange the authenticated user's password in-app. Requires a valid user bearer token and current password confirmation.b\f\n" +
+	"\n" +
+	"\n" +
+	"\x06bearer\x12\x00\x82\xd3\xe4\x93\x02(:\x01*\"#/auth.v2.AuthService/ChangePassword\x1a<\x92A9\x127User authentication and QR-based hub provisioning (v2).B\xf1\t\x92A\xae\t\x12\x92\b\n" +
+	"\vAuth API v2\x12\xe6\aAuth API v2 — QR-based hub provisioning.\n" +
 	"\n" +
 	"**Public endpoints:** Register, Login, ClaimHubToken — no bearer token required.\n" +
-	"**Protected endpoints:** AssociateHub, ListHubs, RevokeHub — require a valid user Bearer token.\n" +
+	"**Protected endpoints:** AssociateHub, ListHubs, RevokeHub, ChangeEmail, ChangePassword — require a valid user Bearer token.\n" +
 	"\n" +
 	"**Hub provisioning flow:**\n" +
 	"1. Hub is flashed with a unique `device_id` (UUID) and `hub_secret`. Both are encoded in a QR code printed on the device.\n" +
@@ -786,21 +989,25 @@ func file_auth_v2_auth_proto_rawDescGZIP() []byte {
 	return file_auth_v2_auth_proto_rawDescData
 }
 
-var file_auth_v2_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
+var file_auth_v2_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
 var file_auth_v2_auth_proto_goTypes = []any{
-	(*RegisterRequest)(nil),       // 0: auth.v2.RegisterRequest
-	(*RegisterResponse)(nil),      // 1: auth.v2.RegisterResponse
-	(*LoginRequest)(nil),          // 2: auth.v2.LoginRequest
-	(*LoginResponse)(nil),         // 3: auth.v2.LoginResponse
-	(*AssociateHubRequest)(nil),   // 4: auth.v2.AssociateHubRequest
-	(*AssociateHubResponse)(nil),  // 5: auth.v2.AssociateHubResponse
-	(*ClaimHubTokenRequest)(nil),  // 6: auth.v2.ClaimHubTokenRequest
-	(*ClaimHubTokenResponse)(nil), // 7: auth.v2.ClaimHubTokenResponse
-	(*ListHubsRequest)(nil),       // 8: auth.v2.ListHubsRequest
-	(*HubInfo)(nil),               // 9: auth.v2.HubInfo
-	(*ListHubsResponse)(nil),      // 10: auth.v2.ListHubsResponse
-	(*RevokeHubRequest)(nil),      // 11: auth.v2.RevokeHubRequest
-	(*RevokeHubResponse)(nil),     // 12: auth.v2.RevokeHubResponse
+	(*RegisterRequest)(nil),        // 0: auth.v2.RegisterRequest
+	(*RegisterResponse)(nil),       // 1: auth.v2.RegisterResponse
+	(*LoginRequest)(nil),           // 2: auth.v2.LoginRequest
+	(*LoginResponse)(nil),          // 3: auth.v2.LoginResponse
+	(*AssociateHubRequest)(nil),    // 4: auth.v2.AssociateHubRequest
+	(*AssociateHubResponse)(nil),   // 5: auth.v2.AssociateHubResponse
+	(*ClaimHubTokenRequest)(nil),   // 6: auth.v2.ClaimHubTokenRequest
+	(*ClaimHubTokenResponse)(nil),  // 7: auth.v2.ClaimHubTokenResponse
+	(*ListHubsRequest)(nil),        // 8: auth.v2.ListHubsRequest
+	(*HubInfo)(nil),                // 9: auth.v2.HubInfo
+	(*ListHubsResponse)(nil),       // 10: auth.v2.ListHubsResponse
+	(*RevokeHubRequest)(nil),       // 11: auth.v2.RevokeHubRequest
+	(*RevokeHubResponse)(nil),      // 12: auth.v2.RevokeHubResponse
+	(*ChangeEmailRequest)(nil),     // 13: auth.v2.ChangeEmailRequest
+	(*ChangeEmailResponse)(nil),    // 14: auth.v2.ChangeEmailResponse
+	(*ChangePasswordRequest)(nil),  // 15: auth.v2.ChangePasswordRequest
+	(*ChangePasswordResponse)(nil), // 16: auth.v2.ChangePasswordResponse
 }
 var file_auth_v2_auth_proto_depIdxs = []int32{
 	9,  // 0: auth.v2.ListHubsResponse.hubs:type_name -> auth.v2.HubInfo
@@ -810,14 +1017,18 @@ var file_auth_v2_auth_proto_depIdxs = []int32{
 	6,  // 4: auth.v2.AuthService.ClaimHubToken:input_type -> auth.v2.ClaimHubTokenRequest
 	8,  // 5: auth.v2.AuthService.ListHubs:input_type -> auth.v2.ListHubsRequest
 	11, // 6: auth.v2.AuthService.RevokeHub:input_type -> auth.v2.RevokeHubRequest
-	1,  // 7: auth.v2.AuthService.Register:output_type -> auth.v2.RegisterResponse
-	3,  // 8: auth.v2.AuthService.Login:output_type -> auth.v2.LoginResponse
-	5,  // 9: auth.v2.AuthService.AssociateHub:output_type -> auth.v2.AssociateHubResponse
-	7,  // 10: auth.v2.AuthService.ClaimHubToken:output_type -> auth.v2.ClaimHubTokenResponse
-	10, // 11: auth.v2.AuthService.ListHubs:output_type -> auth.v2.ListHubsResponse
-	12, // 12: auth.v2.AuthService.RevokeHub:output_type -> auth.v2.RevokeHubResponse
-	7,  // [7:13] is the sub-list for method output_type
-	1,  // [1:7] is the sub-list for method input_type
+	13, // 7: auth.v2.AuthService.ChangeEmail:input_type -> auth.v2.ChangeEmailRequest
+	15, // 8: auth.v2.AuthService.ChangePassword:input_type -> auth.v2.ChangePasswordRequest
+	1,  // 9: auth.v2.AuthService.Register:output_type -> auth.v2.RegisterResponse
+	3,  // 10: auth.v2.AuthService.Login:output_type -> auth.v2.LoginResponse
+	5,  // 11: auth.v2.AuthService.AssociateHub:output_type -> auth.v2.AssociateHubResponse
+	7,  // 12: auth.v2.AuthService.ClaimHubToken:output_type -> auth.v2.ClaimHubTokenResponse
+	10, // 13: auth.v2.AuthService.ListHubs:output_type -> auth.v2.ListHubsResponse
+	12, // 14: auth.v2.AuthService.RevokeHub:output_type -> auth.v2.RevokeHubResponse
+	14, // 15: auth.v2.AuthService.ChangeEmail:output_type -> auth.v2.ChangeEmailResponse
+	16, // 16: auth.v2.AuthService.ChangePassword:output_type -> auth.v2.ChangePasswordResponse
+	9,  // [9:17] is the sub-list for method output_type
+	1,  // [1:9] is the sub-list for method input_type
 	1,  // [1:1] is the sub-list for extension type_name
 	1,  // [1:1] is the sub-list for extension extendee
 	0,  // [0:1] is the sub-list for field type_name
@@ -834,7 +1045,7 @@ func file_auth_v2_auth_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_auth_v2_auth_proto_rawDesc), len(file_auth_v2_auth_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   13,
+			NumMessages:   17,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
